@@ -16,8 +16,8 @@ const config = defineConfig({
     neon,
     tailwindcss(),
     tanstackStart(),
-    viteReact(),
-  ],
+    viteReact()
+  ]
 })
 
 export default config

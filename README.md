@@ -30,7 +30,6 @@ If you prefer not to use Tailwind CSS:
 3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
 4. Remove `@tailwindcss/vite` and `tailwindcss` from `package.json`
 
-
 ## Deploy with Nitro
 
 This project uses Nitro as a generic server adapter, so it can run on any Node-compatible host.
@@ -44,7 +43,6 @@ The build output is a self-contained Node server. To deploy, push the `dist/` di
 
 For host-specific presets (Vercel, Netlify, Cloudflare, AWS Lambda, etc.) and tuning, see https://v3.nitro.build/deploy.
 
-
 ## Shadcn
 
 Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
@@ -52,7 +50,6 @@ Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
 ```bash
 pnpm dlx shadcn@latest add button
 ```
-
 
 ## Setting up Better Auth
 
@@ -70,15 +67,15 @@ Better Auth can work in stateless mode, but to persist user data, add a database
 
 ```typescript
 // src/lib/auth.ts
-import { betterAuth } from "better-auth";
-import { Pool } from "pg";
+import { betterAuth } from 'better-auth'
+import { Pool } from 'pg'
 
 export const auth = betterAuth({
   database: new Pool({
-    connectionString: process.env.DATABASE_URL,
-  }),
+    connectionString: process.env.DATABASE_URL
+  })
   // ... rest of config
-});
+})
 ```
 
 Then run migrations:
@@ -86,7 +83,6 @@ Then run migrations:
 ```bash
 npx -y @better-auth/cli migrate
 ```
-
 
 ## Setting up PostHog
 
@@ -98,7 +94,6 @@ npx -y @better-auth/cli migrate
 
 - `VITE_POSTHOG_HOST` - Set this if you're using PostHog Cloud EU (`https://eu.i.posthog.com`) or self-hosting
 
-
 ## Setting up Neon
 
 When running the `dev` command, `vite-plugin-neon-new` will identify there is not a database setup. It will then create and seed a claimable database.
@@ -107,8 +102,6 @@ It is the same process as [Neon Launchpad](https://neon.new).
 
 > [!IMPORTANT]  
 > Claimable databases expire in 72 hours.
-
-
 
 ## Routing
 
@@ -127,13 +120,13 @@ Now that you have two routes you can use a `Link` component to navigate between 
 To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
 
 ```tsx
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
 ```
 
 Then anywhere in your JSX you can use it like so:
 
 ```tsx
-<Link to="/about">About</Link>
+<Link to='/about'>About</Link>
 ```
 
 This will create a link that will navigate to the `/about` route.
@@ -154,26 +147,26 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
+      { title: 'My App' }
+    ]
   }),
   shellComponent: ({ children }) => (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <HeadContent />
       </head>
       <body>
         <header>
           <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
+            <Link to='/'>Home</Link>
+            <Link to='/about'>About</Link>
           </nav>
         </header>
         {children}
         <Scripts />
       </body>
     </html>
-  ),
+  )
 })
 ```
 
@@ -187,7 +180,7 @@ TanStack Start provides server functions that allow you to write server-side cod
 import { createServerFn } from '@tanstack/react-start'
 
 const getServerTime = createServerFn({
-  method: 'GET',
+  method: 'GET'
 }).handler(async () => {
   return new Date().toISOString()
 })
@@ -195,11 +188,11 @@ const getServerTime = createServerFn({
 // Use in a component
 function MyComponent() {
   const [time, setTime] = useState('')
-  
+
   useEffect(() => {
     getServerTime().then(setTime)
   }, [])
-  
+
   return <div>Server time: {time}</div>
 }
 ```
@@ -215,9 +208,9 @@ import { json } from '@tanstack/react-start'
 export const Route = createFileRoute('/api/hello')({
   server: {
     handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
+      GET: () => json({ message: 'Hello, World!' })
+    }
+  }
 })
 ```
 
@@ -235,14 +228,14 @@ export const Route = createFileRoute('/people')({
     const response = await fetch('https://swapi.dev/api/people')
     return response.json()
   },
-  component: PeopleComponent,
+  component: PeopleComponent
 })
 
 function PeopleComponent() {
   const data = Route.useLoaderData()
   return (
     <ul>
-      {data.results.map((person) => (
+      {data.results.map(person => (
         <li key={person.name}>{person.name}</li>
       ))}
     </ul>
@@ -252,11 +245,9 @@ function PeopleComponent() {
 
 Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
 
-
 # Demo files
 
 Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
 
 # Learn More
 

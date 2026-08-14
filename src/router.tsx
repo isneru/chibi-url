@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 import { QueryClient } from '@tanstack/react-query'
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
 import TanstackQueryProvider, {
-  getContext,
+  getContext
 } from './integrations/tanstack-query/root-provider'
 
 export function getRouter() {
@@ -16,7 +16,7 @@ export function getRouter() {
     context,
     scrollRestoration: true,
     defaultPreload: 'intent',
-    defaultPreloadStaleTime: 0,
+    defaultPreloadStaleTime: 0
   })
 
   setupRouterSsrQueryIntegration({ router, queryClient: context.queryClient })

@@ -13,9 +13,9 @@ import { Label } from '#/components/ui/label'
 export function SubscribeButton({ label }: { label: string }) {
   const form = useFormContext()
   return (
-    <form.Subscribe selector={(state) => state.isSubmitting}>
-      {(isSubmitting) => (
-        <Button type="submit" disabled={isSubmitting}>
+    <form.Subscribe selector={state => state.isSubmitting}>
+      {isSubmitting => (
+        <Button type='submit' disabled={isSubmitting}>
           {label}
         </Button>
       )}
@@ -24,17 +24,16 @@ export function SubscribeButton({ label }: { label: string }) {
 }
 
 function ErrorMessages({
-  errors,
+  errors
 }: {
   errors: Array<string | { message: string }>
 }) {
   return (
     <>
-      {errors.map((error) => (
+      {errors.map(error => (
         <div
           key={typeof error === 'string' ? error : error.message}
-          className="mt-1 text-sm font-semibold text-red-600"
-        >
+          className='mt-1 text-sm font-semibold text-red-600'>
           {typeof error === 'string' ? error : error.message}
         </div>
       ))}
@@ -44,27 +43,26 @@ function ErrorMessages({
 
 export function TextField({
   label,
-  placeholder,
+  placeholder
 }: {
   label: string
   placeholder?: string
 }) {
   const field = useFieldContext<string>()
-  const errors = useStore(field.store, (state) => state.meta.errors)
+  const errors = useStore(field.store, state => state.meta.errors)
 
   return (
     <div>
       <Label
         htmlFor={label}
-        className="mb-2 text-sm font-semibold text-[var(--sea-ink)]"
-      >
+        className='mb-2 text-sm font-semibold text-[var(--sea-ink)]'>
         {label}
       </Label>
       <Input
         value={field.state.value}
         placeholder={placeholder}
         onBlur={field.handleBlur}
-        onChange={(e) => field.handleChange(e.target.value)}
+        onChange={e => field.handleChange(e.target.value)}
       />
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
     </div>
@@ -73,20 +71,19 @@ export function TextField({
 
 export function TextArea({
   label,
-  rows = 3,
+  rows = 3
 }: {
   label: string
   rows?: number
 }) {
   const field = useFieldContext<string>()
-  const errors = useStore(field.store, (state) => state.meta.errors)
+  const errors = useStore(field.store, state => state.meta.errors)
 
   return (
     <div>
       <Label
         htmlFor={label}
-        className="mb-2 text-sm font-semibold text-[var(--sea-ink)]"
-      >
+        className='mb-2 text-sm font-semibold text-[var(--sea-ink)]'>
         {label}
       </Label>
       <ShadcnTextarea
@@ -94,7 +91,7 @@ export function TextArea({
         value={field.state.value}
         onBlur={field.handleBlur}
         rows={rows}
-        onChange={(e) => field.handleChange(e.target.value)}
+        onChange={e => field.handleChange(e.target.value)}
       />
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
     </div>
@@ -104,34 +101,32 @@ export function TextArea({
 export function Select({
   label,
   values,
-  placeholder,
+  placeholder
 }: {
   label: string
   values: Array<{ label: string; value: string }>
   placeholder?: string
 }) {
   const field = useFieldContext<string>()
-  const errors = useStore(field.store, (state) => state.meta.errors)
+  const errors = useStore(field.store, state => state.meta.errors)
 
   return (
     <div>
       <ShadcnSelect.Select
         name={field.name}
         value={field.state.value}
-        onValueChange={(value) => field.handleChange(value)}
-      >
-        <ShadcnSelect.SelectTrigger className="w-full">
+        onValueChange={value => field.handleChange(value)}>
+        <ShadcnSelect.SelectTrigger className='w-full'>
           <ShadcnSelect.SelectValue placeholder={placeholder} />
         </ShadcnSelect.SelectTrigger>
-        <ShadcnSelect.SelectContent className="bg-background text-foreground">
+        <ShadcnSelect.SelectContent className='bg-background text-foreground'>
           <ShadcnSelect.SelectGroup>
             <ShadcnSelect.SelectLabel>{label}</ShadcnSelect.SelectLabel>
-            {values.map((value) => (
+            {values.map(value => (
               <ShadcnSelect.SelectItem
                 key={value.value}
                 value={value.value}
-                className="text-foreground"
-              >
+                className='text-foreground'>
                 {value.label}
               </ShadcnSelect.SelectItem>
             ))}
@@ -145,21 +140,20 @@ export function Select({
 
 export function Slider({ label }: { label: string }) {
   const field = useFieldContext<number>()
-  const errors = useStore(field.store, (state) => state.meta.errors)
+  const errors = useStore(field.store, state => state.meta.errors)
 
   return (
     <div>
       <Label
         htmlFor={label}
-        className="mb-2 text-sm font-semibold text-[var(--sea-ink)]"
-      >
+        className='mb-2 text-sm font-semibold text-[var(--sea-ink)]'>
         {label}
       </Label>
       <ShadcnSlider
         id={label}
         onBlur={field.handleBlur}
         value={[field.state.value]}
-        onValueChange={(value) => field.handleChange(value[0])}
+        onValueChange={value => field.handleChange(value[0])}
       />
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
     </div>
@@ -168,16 +162,16 @@ export function Slider({ label }: { label: string }) {
 
 export function Switch({ label }: { label: string }) {
   const field = useFieldContext<boolean>()
-  const errors = useStore(field.store, (state) => state.meta.errors)
+  const errors = useStore(field.store, state => state.meta.errors)
 
   return (
     <div>
-      <div className="flex items-center gap-2">
+      <div className='flex items-center gap-2'>
         <ShadcnSwitch
           id={label}
           onBlur={field.handleBlur}
           checked={field.state.value}
-          onCheckedChange={(checked) => field.handleChange(checked)}
+          onCheckedChange={checked => field.handleChange(checked)}
         />
         <Label htmlFor={label}>{label}</Label>
       </div>
